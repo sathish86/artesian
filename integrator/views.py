@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse
-from django.views.generic import TemplateView
 # Create your views here.
 
 #
@@ -12,16 +11,12 @@ from django.views.generic import TemplateView
 #     return render(request, 'integrator/home.html')
 
 
-class HomeView(TemplateView):
-    template_name = 'integrator/home.html'
-
-
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('integrator:home'))
+            return redirect(reverse('broadcast:home'))
         else:
             context = {'form': form}
             return render(request, 'integrator/registration_form.html', context)

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+    {% block head %}
+    <title>Home</title>
+    {% endblock %}
+
+    {% block body %}
+    <h1>Broadcast Post</h1>
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+    <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit" >Submit</button>
+    </form>
+
+    {% for rec in records %}
+    <h3>
+        {{ rec.post }}
+    </h3>
+    <p>broadcast by {{ rec.user }} on {{ rec.date }}</p>
+    {% endfor %}
+
+    {% endblock %}

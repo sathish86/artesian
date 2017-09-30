@@ -1,13 +1,13 @@
 from django.conf.urls import url
 from . import views
-from integrator.views import HomeView
+
 from django.contrib.auth.views import (
     login, logout, password_reset, password_reset_done, password_reset_confirm,
     password_reset_complete
 )
 
 urlpatterns = [
-    url(r'^$', HomeView.as_view(), name="home"),
+    # url(r'^$', HomeView.as_view(), name="home"),
     url(r'^login/$', login, {'template_name' : 'integrator/login.html'}, name='login'),
     url(r'^logout/$', logout, {'template_name' : 'integrator/logout.html'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
