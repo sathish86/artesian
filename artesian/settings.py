@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'artesian.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'artesian.urls'
@@ -124,3 +125,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = "/integrator/"
+
+LOGIN_URL = "/integrator/login/"
+
+LOGIN_EXEMPT_URLS = (
+    r'^integrator/logout/$',
+    r'^integrator/register/$',
+)
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025

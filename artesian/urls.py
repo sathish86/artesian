@@ -20,5 +20,5 @@ from artesian import views as artesian_views
 urlpatterns = [
     url(r'^$', artesian_views.login_redirect, name='login_redirect'),
     url(r'^admin/', admin.site.urls),
-    url(r'^integrator/', include('integrator.urls'))
+    url(r'^integrator/', include('integrator.urls', namespace='integrator'))
 ]
