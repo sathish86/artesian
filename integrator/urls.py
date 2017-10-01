@@ -7,7 +7,6 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
-    # url(r'^$', HomeView.as_view(), name="home"),
     url(r'^login/$', login, {'template_name' : 'integrator/login.html'}, name='login'),
     url(r'^logout/$', logout, {'template_name' : 'integrator/logout.html'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
@@ -20,4 +19,5 @@ urlpatterns = [
     url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset-password/complete/$', password_reset_complete, name='password_reset_complete'),
     url(r'^connect/(?P<operation>.+)/(?P<pk>\d+)/$', views.change_collaboration, name='change_collaboration'),
+    url(r'^collaborators/$', views.list_collaborators, name='list_collaborators'),
 ]

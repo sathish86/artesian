@@ -16,7 +16,3 @@ class Post(models.Model):
 
     objects = models.Manager()  # The default manager.
     latest_post = PostManager()  # PostManger class.
-
-
-    # get_next_by_creted()
-    # get_next_by_user()

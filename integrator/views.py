@@ -4,16 +4,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse
-from .models import Investor
+from .models import Investor, Government, Corporate, Startup
+
 
 # Create your views here.
 
-#
-# def home(request):
-#     return render(request, 'integrator/home.html')
-
-
 def register(request):
+    """
+    Register a new user using form
+    :param request: django http request object
+    :return: redirects to home page, if its successful
+    """
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -29,6 +30,12 @@ def register(request):
 
 
 def view_profile(request, pk=None):
+    """
+    View user profile
+    :param request: django http request object
+    :param pk: primary key of the user to get his/her detail
+    :return: render a page to display profile detail
+    """
     if pk:
         user = User.objects.get(pk=pk)
     else:
@@ -39,6 +46,11 @@ def view_profile(request, pk=None):
 
 
 def edit_profile(request):
+    """
+    Edit user profile detail
+    :param request: django http request object
+    :return: render edit profile page for displaying errors or redirects to profile page
+    """
     if request.method == "POST":
         form = ProfileEditForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -50,25 +62,12 @@ def edit_profile(request):
         return render(request, 'integrator/profile_edit.html', context)
 
 
-# def edit_profile(request):
-#     if request.method == "POST":
-#         user_form = UserEditForm(request.POST, instance=request.user)
-#         profile_form = ProfileEditForm(request.POST, instance=request.user.userprofile)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             # messages.success(request, _('Your profile was successfully updated!'))
-#             return redirect(reverse('view_profile'))
-#         # else:
-#         #     messages.error(request, _('Please correct the error below.'))
-#     else:
-#         user_form = UserEditForm(request.POST, instance=request.user)
-#         profile_form = ProfileEditForm(request.POST, instance=request.user.userprofile)
-#         context = {'user_form': user_form, 'profile_form': profile_form}
-#         return render(request, 'integrator/profile_edit.html', context)
-
-
 def change_password(request):
+    """
+    Used to change user password, it uses django's in built form to do change password.
+    :param request: django http request object
+    :return: redirects to profile page.
+    """
     if request.method == "POST":
         form = PasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
@@ -84,14 +83,88 @@ def change_password(request):
         return render(request, 'integrator/password_change.html', context)
 
 
+def get_collaborator(request):
+    """
+    Create list of collaborator of a particular user and it depends on user role.
+    :param request: django http request object
+    :return: list of model objects
+    """
+    collaborators = []
+    # choose right model depends on user role
+    if request.user.userprofile.role == "investor":
+        try:
+            user_obj = Investor.objects.get(current_user=request.user)
+            collaborators = user_obj.users.all()
+        except Investor.DoesNotExist:
+            collaborators = None
+
+    elif request.user.userprofile.role == "corporate":
+        try:
+            user_obj = Corporate.objects.get(current_user=request.user)
+            collaborators = user_obj.users.all()
+        except Corporate.DoesNotExist:
+            collaborators = None
+
+    elif request.user.userprofile.role == "startup":
+        try:
+            user_obj = Startup.objects.get(current_user=request.user)
+            collaborators = user_obj.users.all()
+        except Startup.DoesNotExist:
+            collaborators = None
+
+    elif request.user.userprofile.role == "government":
+        try:
+            user_obj = Government.objects.get(current_user=request.user)
+            collaborators = user_obj.users.all()
+        except Government.DoesNotExist:
+            collaborators = None
+
+    return collaborators
+
+
+def list_collaborators(request):
+    """
+    List of users available to view and add them as collaborators to current user
+    :param request: django http request object
+    :return: list of user model objects
+    """
+    users = User.objects.all().exclude(id=request.user.id)
+    collaborators = get_collaborator(request)
+    return render(request, 'integrator/collaborators.html', {'users': users,
+                                                             'collaborators': collaborators})
+
+
 def change_collaboration(request, operation, pk):
-    import pdb; pdb.set_trace()
+    """
+    Add or remove collaborators from current users based on operation requested.
+
+    :param request: django http request object
+    :param operation: used to find add or remove collaborator from current user
+    :param pk: primary key of the user which will be added to current logged in user.
+    :return: redirect to list of collaborators page.
+    """
     collaborate_user = User.objects.get(pk=pk)
 
     if operation == "add":
-        Investor.make_collaboration(request.user, collaborate_user)
-        return redirect("broadcast:home")
+        # add user as collaborators to current user and choose right model based on the role.
+        if request.user.userprofile.role == "investor":
+            Investor.make_collaboration(request.user, collaborate_user)
+        elif request.user.userprofile.role == "government":
+            Government.make_collaboration(request.user, collaborate_user)
+        elif request.user.userprofile.role == "corporate":
+            Corporate.make_collaboration(request.user, collaborate_user)
+        elif request.user.userprofile.role == "startup":
+            Startup.make_collaboration(request.user, collaborate_user)
 
     elif operation == "remove":
-        Investor.remove_collaboration(request.user, collaborate_user)
-        return redirect("broadcast:home")
+        # remove user as collaborators from current user and choose right model based on the role.
+        if request.user.userprofile.role == "investor":
+            Investor.remove_collaboration(request.user, collaborate_user)
+        elif request.user.userprofile.role == "government":
+            Government.remove_collaboration(request.user, collaborate_user)
+        elif request.user.userprofile.role == "corporate":
+            Corporate.remove_collaboration(request.user, collaborate_user)
+        elif request.user.userprofile.role == "startup":
+            Startup.remove_collaboration(request.user, collaborate_user)
+
+    return redirect("integrator:list_collaborators")

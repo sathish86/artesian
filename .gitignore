@@ -1,1 +1,2 @@
 *.pyc
+/artesian/settings_conf/local.py

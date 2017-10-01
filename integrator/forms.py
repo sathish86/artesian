@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 class RegistrationForm(UserCreationForm):
+    # Used for registration form
     email = forms.EmailField(required=True, max_length=254, help_text='Enter your email id')
     role = forms.CharField(max_length=15,
                            widget=forms.Select(choices=UserProfile.ROLE_CHOICES[:-1]),
@@ -25,47 +26,26 @@ class RegistrationForm(UserCreationForm):
         )
 
     def save(self, commit=True):
+        # assign value to User model attributes
         user = super(RegistrationForm, self).save(commit=False)
+        # assign value to UserProfile model attributes
         user_profile = UserProfile(user=user,
                                    description=self.cleaned_data['description'],
                                    role=self.cleaned_data['role'])
 
         if commit:
+            # save user model
             user.save()
+            # assign newly created user id to user profile model
             user_profile.user = user
+            # save user profile model
             user_profile.save()
 
         return user, user_profile
 
-    # class UserEditForm(UserChangeForm):
-    #     class Meta:
-    #         model = User
-    #         fields = ('first_name', 'last_name', 'email', 'password')
-    #
-    # class ProfileEditForm(forms.ModelForm):
-    #     class Meta:
-    #         model = UserProfile
-    #         fields = ('role', 'description')
-
-
-    # def save(self, commit=True):
-    #     import pdb; pdb.set_trace()
-    #     user = super(ProfileEditForm, self).save(commit=False)
-    #     user.userprofile.role = self.cleaned_data['role']
-    #     user.userprofile.description = self.cleaned_data['description']
-    #     # user_profile = user.userprofile(
-    #     #                 description=self.cleaned_data['description'],
-    #     #                 role=self.cleaned_data['role'])
-    #
-    #     if commit:
-    #         user.save()
-    #         # user_profile.user = user
-    #         # user_profile.save()
-    #
-    #     return user
-
 
 class ProfileEditForm(UserChangeForm):
+    # User profile edit form
     email = forms.EmailField(required=True, max_length=254, help_text='Enter your email id')
     role = forms.CharField(max_length=15,
                            widget=forms.Select(choices=UserProfile.ROLE_CHOICES[:-1]),
@@ -84,11 +64,13 @@ class ProfileEditForm(UserChangeForm):
         )
 
     def save(self, commit=True):
+        # assign value to User model attributes
         user = super(ProfileEditForm, self).save(commit=False)
         user.userprofile.role = self.cleaned_data['role']
         user.userprofile.description = self.cleaned_data['description']
 
         if commit:
+            # save user model
             user.save()
             user.userprofile.save()
 

@@ -35,19 +35,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Artesian</a>
+                <a class="navbar-brand" href="#">Venture Captial</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 {% if user.is_authenticated %}
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'broadcast:home' %}">Home</a></li>
+                        <li><a href="{% url 'integrator:list_collaborators' %}">Collaborators</a></li>
                         <li><a href="{% url 'integrator:view_profile' %}">Profile</a></li>
                         <li><a href="{% url 'integrator:edit_profile' %}">Edit Profile</a></li>
 
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'broadcast:home' %}"> Welcome: {{ user.first_name }} ({{ user.userprofile.role }})</a></li>
+                        <li><a href="{% url 'broadcast:home' %}"> Welcome: {{ user.first_name }}
+                            ({{ user.userprofile.role }})</a></li>
                         <li><a href="{% url 'integrator:change_password' %}">Change Password</a></li>
                         <li><a href="{% url 'integrator:logout' %}">Logout</a></li>
                     </ul>
