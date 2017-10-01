@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse
+from .models import Investor
+
 # Create your views here.
 
 #
@@ -25,8 +27,14 @@ def register(request):
         context = {'form': form}
         return render(request, 'integrator/registration_form.html', context)
 
-def view_profile(request):
-    args = {'user_value': request.user}
+
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+
+    args = {'user': user}
     return render(request, 'integrator/profile.html', args)
 
 
@@ -74,3 +82,16 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         context = {'form': form}
         return render(request, 'integrator/password_change.html', context)
+
+
+def change_collaboration(request, operation, pk):
+    import pdb; pdb.set_trace()
+    collaborate_user = User.objects.get(pk=pk)
+
+    if operation == "add":
+        Investor.make_collaboration(request.user, collaborate_user)
+        return redirect("broadcast:home")
+
+    elif operation == "remove":
+        Investor.remove_collaboration(request.user, collaborate_user)
+        return redirect("broadcast:home")
