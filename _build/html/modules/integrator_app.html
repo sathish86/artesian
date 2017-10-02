@@ -1,0 +1,422 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Integrator App &#8212; VcCrowd 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="BroadCast App" href="broadcast_app.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="integrator-app">
+<h1>Integrator App<a class="headerlink" href="#integrator-app" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-integrator.views"></span><dl class="function">
+<dt id="integrator.views.change_collaboration">
+<code class="descclassname">integrator.views.</code><code class="descname">change_collaboration</code><span class="sig-paren">(</span><em>request</em>, <em>operation</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#change_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.change_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add or remove collaborators from current users based on operation requested.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> – django http request object</li>
+<li><strong>operation</strong> – used to find add or remove collaborator from current user</li>
+<li><strong>pk</strong> – primary key of the user which will be added to current logged in user.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">redirect to list of collaborators page.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="integrator.views.change_password">
+<code class="descclassname">integrator.views.</code><code class="descname">change_password</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#change_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.change_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to change user password, it uses django’s in built form to do change password.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> – django http request object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">redirects to profile page.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="integrator.views.edit_profile">
+<code class="descclassname">integrator.views.</code><code class="descname">edit_profile</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#edit_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.edit_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit user profile detail</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> – django http request object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">render edit profile page for displaying errors or redirects to profile page</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="integrator.views.get_collaborator">
+<code class="descclassname">integrator.views.</code><code class="descname">get_collaborator</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#get_collaborator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.get_collaborator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create list of collaborator of a particular user and it depends on user role.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> – django http request object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of model objects</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="integrator.views.list_collaborators">
+<code class="descclassname">integrator.views.</code><code class="descname">list_collaborators</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#list_collaborators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.list_collaborators" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of users available to view and add them as collaborators to current user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> – django http request object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of user model objects</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="integrator.views.register">
+<code class="descclassname">integrator.views.</code><code class="descname">register</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a new user using form</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> – django http request object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">redirects to home page, if its successful</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="integrator.views.view_profile">
+<code class="descclassname">integrator.views.</code><code class="descname">view_profile</code><span class="sig-paren">(</span><em>request</em>, <em>pk=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/views.html#view_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.views.view_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>View user profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> – django http request object</li>
+<li><strong>pk</strong> – primary key of the user to get his/her detail</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">render a page to display profile detail</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-integrator.forms"></span><span class="target" id="module-integrator.models"></span><dl class="class">
+<dt id="integrator.models.Corporate">
+<em class="property">class </em><code class="descclassname">integrator.models.</code><code class="descname">Corporate</code><span class="sig-paren">(</span><em>id</em>, <em>current_user</em>, <em>contact_person</em>, <em>phone</em>, <em>industry</em>, <em>no_of_employees</em>, <em>overall_budget</em>, <em>market_capital</em>, <em>risk_appetite</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Corporate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Corporate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="classmethod">
+<dt id="integrator.models.Corporate.make_collaboration">
+<em class="property">classmethod </em><code class="descname">make_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Corporate.make_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Corporate.make_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new user to currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – new user id to be added.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="integrator.models.Corporate.remove_collaboration">
+<em class="property">classmethod </em><code class="descname">remove_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Corporate.remove_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Corporate.remove_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove user from currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – user id that need to be removed from currently logged in user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="integrator.models.Government">
+<em class="property">class </em><code class="descclassname">integrator.models.</code><code class="descname">Government</code><span class="sig-paren">(</span><em>id</em>, <em>current_user</em>, <em>contact_person</em>, <em>phone</em>, <em>industry</em>, <em>overall_budget</em>, <em>market_capital</em>, <em>risk_appetite</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Government"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Government" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="classmethod">
+<dt id="integrator.models.Government.make_collaboration">
+<em class="property">classmethod </em><code class="descname">make_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Government.make_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Government.make_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new user to currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – new user id to be added.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="integrator.models.Government.remove_collaboration">
+<em class="property">classmethod </em><code class="descname">remove_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Government.remove_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Government.remove_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove user from currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – user id that need to be removed from currently logged in user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="integrator.models.Investor">
+<em class="property">class </em><code class="descclassname">integrator.models.</code><code class="descname">Investor</code><span class="sig-paren">(</span><em>id</em>, <em>current_user</em>, <em>contact_person</em>, <em>phone</em>, <em>industry</em>, <em>overall_budget</em>, <em>risk_appetite</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Investor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Investor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="classmethod">
+<dt id="integrator.models.Investor.make_collaboration">
+<em class="property">classmethod </em><code class="descname">make_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Investor.make_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Investor.make_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new user to currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – new user id to be added.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="integrator.models.Investor.remove_collaboration">
+<em class="property">classmethod </em><code class="descname">remove_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Investor.remove_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Investor.remove_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove user from currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – user id that need to be removed from currently logged in user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="integrator.models.Startup">
+<em class="property">class </em><code class="descclassname">integrator.models.</code><code class="descname">Startup</code><span class="sig-paren">(</span><em>id</em>, <em>current_user</em>, <em>contact_person</em>, <em>phone</em>, <em>industry</em>, <em>no_of_employees</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Startup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Startup" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="classmethod">
+<dt id="integrator.models.Startup.make_collaboration">
+<em class="property">classmethod </em><code class="descname">make_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Startup.make_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Startup.make_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new user to currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – new user id to be added.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="integrator.models.Startup.remove_collaboration">
+<em class="property">classmethod </em><code class="descname">remove_collaboration</code><span class="sig-paren">(</span><em>current_user</em>, <em>new_collaborator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#Startup.remove_collaboration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.Startup.remove_collaboration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove user from currently logged in user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>current_user</strong> – currently logged in user id</li>
+<li><strong>new_collaborator</strong> – user id that need to be removed from currently logged in user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="integrator.models.UserProfile">
+<em class="property">class </em><code class="descclassname">integrator.models.</code><code class="descname">UserProfile</code><span class="sig-paren">(</span><em>id</em>, <em>user</em>, <em>description</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/integrator/models.html#UserProfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#integrator.models.UserProfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-integrator.urls"></span><span class="target" id="module-integrator.admin"></span></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">VcCrowd</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="broadcast_app.html">BroadCast App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Integrator App</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="broadcast_app.html" title="previous chapter">BroadCast App</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sathish Kumar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/integrator_app.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

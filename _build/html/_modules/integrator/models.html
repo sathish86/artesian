@@ -1,0 +1,297 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>integrator.models &#8212; VcCrowd 1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for integrator.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+
+<span class="c1"># Create your models here.</span>
+
+
+<span class="k">class</span> <span class="nc">UserProfileManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">UserProfileManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s1">&#39;investor&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="UserProfile"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.UserProfile">[docs]</a><span class="k">class</span> <span class="nc">UserProfile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ROLE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;government&#39;</span><span class="p">,</span> <span class="s1">&#39;Government&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;investor&#39;</span><span class="p">,</span> <span class="s1">&#39;Investor&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;startup&#39;</span><span class="p">,</span> <span class="s1">&#39;Startup&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;corporate&#39;</span><span class="p">,</span> <span class="s1">&#39;Corporate&#39;</span><span class="p">),</span>
+        <span class="c1"># this role won&#39;t be displayed in registration form or edit profile</span>
+        <span class="c1"># form and it is for admin purpose.</span>
+        <span class="p">(</span><span class="s1">&#39;artesian&#39;</span><span class="p">,</span> <span class="s1">&#39;Artesian&#39;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">role</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">ROLE_CHOICES</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span>  <span class="c1"># The default manager.</span>
+    <span class="n">investor</span> <span class="o">=</span> <span class="n">UserProfileManager</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span></div>
+
+
+<div class="viewcode-block" id="Investor"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Investor">[docs]</a><span class="k">class</span> <span class="nc">Investor</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;investor_owner&#39;</span><span class="p">)</span>
+    <span class="n">contact_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">industry</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">overall_budget</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">risk_appetite</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Investor.make_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Investor.make_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new user to currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: new user id to be added.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;investor&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Investor</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Investor.remove_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Investor.remove_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">remove_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove user from currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: user id that need to be removed from currently logged in user</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;investor&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Investor</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Government"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Government">[docs]</a><span class="k">class</span> <span class="nc">Government</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;govern_owner&#39;</span><span class="p">)</span>
+    <span class="n">contact_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">industry</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">overall_budget</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">market_capital</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">risk_appetite</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Government.make_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Government.make_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new user to currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: new user id to be added.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;government&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Government</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Government.remove_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Government.remove_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">remove_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove user from currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: user id that need to be removed from currently logged in user</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;government&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Government</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Startup"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Startup">[docs]</a><span class="k">class</span> <span class="nc">Startup</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;startup_owner&#39;</span><span class="p">)</span>
+    <span class="n">contact_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">industry</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">no_of_employees</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Startup.make_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Startup.make_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new user to currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: new user id to be added.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;startup&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Startup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Startup.remove_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Startup.remove_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">remove_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove user from currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: user id that need to be removed from currently logged in user</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;startup&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Startup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Corporate"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Corporate">[docs]</a><span class="k">class</span> <span class="nc">Corporate</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+    <span class="n">current_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;corporate_owner&#39;</span><span class="p">)</span>
+    <span class="n">contact_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">industry</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">no_of_employees</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">overall_budget</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">market_capital</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">risk_appetite</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Corporate.make_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Corporate.make_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new user to currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: new user id to be added.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;corporate&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Corporate</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Corporate.remove_collaboration"><a class="viewcode-back" href="../../modules/integrator_app.html#integrator.models.Corporate.remove_collaboration">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">remove_collaboration</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">new_collaborator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove user from currently logged in user</span>
+
+<span class="sd">        :param current_user: currently logged in user id</span>
+<span class="sd">        :param new_collaborator: user id that need to be removed from currently logged in user</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">userprofile</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="s1">&#39;corporate&#39;</span><span class="p">:</span>
+            <span class="n">collaborator</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Corporate</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span>
+            <span class="p">)</span>
+            <span class="n">collaborator</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_collaborator</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">VcCrowd</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/broadcast_app.html">BroadCast App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/integrator_app.html">Integrator App</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sathish Kumar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
