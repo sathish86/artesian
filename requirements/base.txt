@@ -3,3 +3,4 @@ psycopg2
 flake8
 isort
 coverage
+Sphinx

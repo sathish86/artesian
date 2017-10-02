@@ -18,6 +18,7 @@ class HomeView(TemplateView):
     def get(self, request):
         """
         Used for rendering list of post and also used for search operation
+
         :param request: http request object
         :return: list of post objects
         """
@@ -37,6 +38,7 @@ class HomeView(TemplateView):
     def post(self, request):
         """
         Creates post based on the input
+
         :param request: http request object
         :return: list of post objects
         """

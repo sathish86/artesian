@@ -1,3 +1,5 @@
 *.pyc
 /artesian/settings_conf/local.py
 logfile
+.coverage
+htmlcov

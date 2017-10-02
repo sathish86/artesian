@@ -17,6 +17,7 @@ log = logging.getLogger(__name__)
 def register(request):
     """
     Register a new user using form
+
     :param request: django http request object
     :return: redirects to home page, if its successful
     """
@@ -38,6 +39,7 @@ def register(request):
 def view_profile(request, pk=None):
     """
     View user profile
+
     :param request: django http request object
     :param pk: primary key of the user to get his/her detail
     :return: render a page to display profile detail
@@ -55,6 +57,7 @@ def view_profile(request, pk=None):
 def edit_profile(request):
     """
     Edit user profile detail
+
     :param request: django http request object
     :return: render edit profile page for displaying errors or redirects to profile page
     """
@@ -73,6 +76,7 @@ def edit_profile(request):
 def change_password(request):
     """
     Used to change user password, it uses django's in built form to do change password.
+
     :param request: django http request object
     :return: redirects to profile page.
     """
@@ -95,6 +99,7 @@ def change_password(request):
 def get_collaborator(request):
     """
     Create list of collaborator of a particular user and it depends on user role.
+
     :param request: django http request object
     :return: list of model objects
     """
@@ -135,6 +140,7 @@ def get_collaborator(request):
 def list_collaborators(request):
     """
     List of users available to view and add them as collaborators to current user
+
     :param request: django http request object
     :return: list of user model objects
     """

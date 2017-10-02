@@ -47,6 +47,7 @@ class Investor(models.Model):
     def make_collaboration(cls, current_user, new_collaborator):
         """
         Add new user to currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: new user id to be added.
         :return: None
@@ -61,6 +62,7 @@ class Investor(models.Model):
     def remove_collaboration(cls, current_user, new_collaborator):
         """
         Remove user from currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: user id that need to be removed from currently logged in user
         :return: None
@@ -86,6 +88,7 @@ class Government(models.Model):
     def make_collaboration(cls, current_user, new_collaborator):
         """
         Add new user to currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: new user id to be added.
         :return: None
@@ -100,6 +103,7 @@ class Government(models.Model):
     def remove_collaboration(cls, current_user, new_collaborator):
         """
         Remove user from currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: user id that need to be removed from currently logged in user
         :return: None
@@ -123,6 +127,7 @@ class Startup(models.Model):
     def make_collaboration(cls, current_user, new_collaborator):
         """
         Add new user to currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: new user id to be added.
         :return: None
@@ -137,6 +142,7 @@ class Startup(models.Model):
     def remove_collaboration(cls, current_user, new_collaborator):
         """
         Remove user from currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: user id that need to be removed from currently logged in user
         :return: None
@@ -163,6 +169,7 @@ class Corporate(models.Model):
     def make_collaboration(cls, current_user, new_collaborator):
         """
         Add new user to currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: new user id to be added.
         :return: None
@@ -177,6 +184,7 @@ class Corporate(models.Model):
     def remove_collaboration(cls, current_user, new_collaborator):
         """
         Remove user from currently logged in user
+
         :param current_user: currently logged in user id
         :param new_collaborator: user id that need to be removed from currently logged in user
         :return: None
