@@ -1,0 +1,31 @@
+[
+{
+    "model": "integrator.investor",
+    "pk": 1,
+    "fields": {
+        "current_user": 1,
+        "contact_person": null,
+        "phone": null,
+        "industry": null,
+        "overall_budget": null,
+        "risk_appetite": null,
+        "users": [
+            10,
+            11
+        ]
+    }
+},
+{
+    "model": "integrator.investor",
+    "pk": 2,
+    "fields": {
+        "current_user": 15,
+        "contact_person": null,
+        "phone": null,
+        "industry": null,
+        "overall_budget": null,
+        "risk_appetite": null,
+        "users": []
+    }
+}
+]

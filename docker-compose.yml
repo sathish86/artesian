@@ -7,6 +7,7 @@ services:
     build: .
     command: python3 manage.py runserver 0.0.0.0:8000
     environment:
+      - PYTHONPATH=.
       - DJANGO_SETTINGS_MODULE=artesian.settings_conf.dev
     volumes:
       - .:/code

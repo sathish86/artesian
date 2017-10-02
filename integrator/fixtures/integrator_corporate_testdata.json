@@ -1,0 +1,20 @@
+[
+{
+    "model": "integrator.corporate",
+    "pk": 1,
+    "fields": {
+        "current_user": 10,
+        "contact_person": null,
+        "phone": null,
+        "industry": null,
+        "no_of_employees": null,
+        "overall_budget": null,
+        "market_capital": null,
+        "risk_appetite": null,
+        "users": [
+            12,
+            13
+        ]
+    }
+}
+]

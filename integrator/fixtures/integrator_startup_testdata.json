@@ -1,0 +1,16 @@
+[
+{
+    "model": "integrator.startup",
+    "pk": 1,
+    "fields": {
+        "current_user": 10,
+        "contact_person": null,
+        "phone": null,
+        "industry": null,
+        "no_of_employees": null,
+        "users": [
+            12
+        ]
+    }
+}
+]

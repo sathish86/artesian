@@ -1,0 +1,65 @@
+[
+{
+    "model": "integrator.userprofile",
+    "pk": 7,
+    "fields": {
+        "user": 10,
+        "description": "Woolworths Limited",
+        "role": "corporate"
+    }
+},
+{
+    "model": "integrator.userprofile",
+    "pk": 8,
+    "fields": {
+        "user": 1,
+        "description": "",
+        "role": "government"
+    }
+},
+{
+    "model": "integrator.userprofile",
+    "pk": 13,
+    "fields": {
+        "user": 11,
+        "description": "",
+        "role": "government"
+    }
+},
+{
+    "model": "integrator.userprofile",
+    "pk": 17,
+    "fields": {
+        "user": 12,
+        "description": "Robotics",
+        "role": "startup"
+    }
+},
+{
+    "model": "integrator.userprofile",
+    "pk": 18,
+    "fields": {
+        "user": 13,
+        "description": "NRMA Road",
+        "role": "government"
+    }
+},
+{
+    "model": "integrator.userprofile",
+    "pk": 19,
+    "fields": {
+        "user": 14,
+        "description": "Supermarket",
+        "role": "corporate"
+    }
+},
+{
+    "model": "integrator.userprofile",
+    "pk": 20,
+    "fields": {
+        "user": 15,
+        "description": "Robotics",
+        "role": "investor"
+    }
+}
+]
