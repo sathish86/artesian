@@ -1,15 +1,9 @@
 # Create your tests here.
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test import RequestFactory
 from django.contrib.auth.models import User
-from django.test import Client
+from django.core.urlresolvers import reverse
+from django.test import Client, RequestFactory, TestCase
+
 from integrator import views
-
-from django.contrib.messages.storage.fallback import FallbackStorage
-# below import works only with python 3.4 or greater
-from unittest.mock import patch, MagicMock
-
 from integrator.models import Corporate
 
 
@@ -77,7 +71,6 @@ class PostViewsTestCase(TestCase):
         Test to add new collaborator to current user.
         :return: None
         """
-        import pdb; pdb.set_trace()
         request = self.factory.get(reverse('integrator:view_profile'))
         request.user = User.objects.get(pk=10)
         no_of_collaborators = Corporate.objects.get(current_user=request.user)

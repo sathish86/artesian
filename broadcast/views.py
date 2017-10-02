@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect
+import logging
+
+from django.contrib import messages
+from django.db.models import Q
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
+
 from broadcast.forms import HomeForm
 from broadcast.models import Post
-from django.contrib import messages
 
-from django.db.models import Q
-import logging
+log = logging.getLogger(__name__)
 
 
 class HomeView(TemplateView):
@@ -18,10 +21,9 @@ class HomeView(TemplateView):
         :param request: http request object
         :return: list of post objects
         """
-        logging.debug("Home view get form")
+        log.debug("Home view get form")
         form = HomeForm()
         query = request.GET.get('q')
-        print("Query: {0}".format(query))
         if query:
             # multiple field search
             records = Post.objects.filter(Q(post__icontains=query) |
@@ -38,7 +40,7 @@ class HomeView(TemplateView):
         :param request: http request object
         :return: list of post objects
         """
-        logging.debug("Home view post form")
+        log.debug("Home view post form")
         form = HomeForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)

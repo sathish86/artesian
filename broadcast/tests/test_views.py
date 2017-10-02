@@ -1,17 +1,19 @@
 # Create your tests here.
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test import RequestFactory
-from django.contrib.auth.models import User
-from broadcast.views import HomeView
-from broadcast.models import Post
-from django.contrib.messages.storage.fallback import FallbackStorage
 # below import works only with python 3.4 or greater
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
+from django.contrib.auth.models import User
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.core.urlresolvers import reverse
+from django.test import RequestFactory, TestCase
+
+from broadcast.models import Post
+from broadcast.views import HomeView
 
 
 class PostViewsTestCase(TestCase):
-    fixtures = ['broadcast_user_testdata.json', 'integrator_userprofile_testdata', 'broadcast_views_testdata.json']
+    fixtures = ['broadcast_user_testdata.json', 'integrator_userprofile_testdata',
+                'broadcast_views_testdata.json']
 
     def setUp(self):
         self.user = User.objects.first()

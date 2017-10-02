@@ -1,11 +1,16 @@
-from django.shortcuts import render, redirect
-from integrator.forms import RegistrationForm, ProfileEditForm
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
-from django.urls import reverse
-from .models import Investor, Government, Corporate, Startup
 import logging
+
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
+from integrator.forms import ProfileEditForm, RegistrationForm
+
+from .models import Corporate, Government, Investor, Startup
+
+log = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -15,7 +20,7 @@ def register(request):
     :param request: django http request object
     :return: redirects to home page, if its successful
     """
-    logging.debug("Register view")
+    log.debug("Register view")
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -37,7 +42,7 @@ def view_profile(request, pk=None):
     :param pk: primary key of the user to get his/her detail
     :return: render a page to display profile detail
     """
-    logging.debug("View profile")
+    log.debug("View profile")
     if pk:
         user = User.objects.get(pk=pk)
     else:
@@ -53,7 +58,7 @@ def edit_profile(request):
     :param request: django http request object
     :return: render edit profile page for displaying errors or redirects to profile page
     """
-    logging.debug("Edit profile")
+    log.debug("Edit profile")
     if request.method == "POST":
         form = ProfileEditForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -71,7 +76,7 @@ def change_password(request):
     :param request: django http request object
     :return: redirects to profile page.
     """
-    logging.debug("Change password")
+    log.debug("Change password")
     if request.method == "POST":
         form = PasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
@@ -93,7 +98,7 @@ def get_collaborator(request):
     :param request: django http request object
     :return: list of model objects
     """
-    logging.debug("Get collaborators")
+    log.debug("Get collaborators")
     collaborators = []
     # choose right model depends on user role
     if request.user.userprofile.role == "investor":
@@ -133,7 +138,7 @@ def list_collaborators(request):
     :param request: django http request object
     :return: list of user model objects
     """
-    logging.debug("List collaborators")
+    log.debug("List collaborators")
     users = User.objects.all().exclude(id=request.user.id)
     collaborators = get_collaborator(request)
     return render(request, 'integrator/collaborators.html', {'users': users,
@@ -149,7 +154,7 @@ def change_collaboration(request, operation, pk):
     :param pk: primary key of the user which will be added to current logged in user.
     :return: redirect to list of collaborators page.
     """
-    logging.debug("Change collaborators")
+    log.debug("Change collaborators")
     collaborate_user = User.objects.get(pk=pk)
 
     if operation == "add":

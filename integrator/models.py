@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 # Create your models here.
 
@@ -17,7 +17,8 @@ class UserProfile(models.Model):
         ('investor', 'Investor'),
         ('startup', 'Startup'),
         ('corporate', 'Corporate'),
-        # this role won't be displayed in registration form or edit profile form and it is for admin purpose.
+        # this role won't be displayed in registration form or edit profile
+        # form and it is for admin purpose.
         ('artesian', 'Artesian'),
     )
     role = models.CharField(

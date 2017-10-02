@@ -1,7 +1,8 @@
 from django import forms
-from integrator.models import UserProfile
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
+
+from integrator.models import UserProfile
 
 
 class RegistrationForm(UserCreationForm):
@@ -10,7 +11,8 @@ class RegistrationForm(UserCreationForm):
     role = forms.CharField(max_length=15,
                            widget=forms.Select(choices=UserProfile.ROLE_CHOICES[:-1]),
                            required=True)
-    description = forms.CharField(max_length=100, required=False, help_text='Description about you')
+    description = forms.CharField(max_length=100, required=False,
+                                  help_text='Description about you')
 
     class Meta:
         model = User
@@ -50,7 +52,8 @@ class ProfileEditForm(UserChangeForm):
     role = forms.CharField(max_length=15,
                            widget=forms.Select(choices=UserProfile.ROLE_CHOICES[:-1]),
                            required=True)
-    description = forms.CharField(max_length=100, required=False, help_text='Description about you')
+    description = forms.CharField(max_length=100, required=False,
+                                  help_text='Description about you')
 
     class Meta:
         model = User
