@@ -3,3 +3,6 @@
 logfile
 .coverage
 htmlcov
+venv
+staticfiles
+.env
