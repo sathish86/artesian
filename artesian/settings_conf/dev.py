@@ -2,6 +2,8 @@ from artesian.settings_conf.base import *
 
 DEBUG = True
 
+ALLOWED_HOSTS = ['*']
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

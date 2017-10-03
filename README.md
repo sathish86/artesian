@@ -63,7 +63,9 @@ Using docker method (Assumes docker and docker-compose is already installed in y
 1. $ cd /path/to/your/workspace
 2. $ git clone git://github.com/sathis86/artesian/ project_name && cd project_name
 3. $ docker-compose build
+3. $ docker-compose run --service-ports web python manage.py migrate
 4. $ docker-compose up
+
 
 Hopefully this will build the image and run in container, it uses postgres and python3 image and link those container using docker-compose. It should server the app in localhost :8000 port.
 Goto “Try list of operations in this Django application:” section for more details
