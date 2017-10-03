@@ -21,7 +21,7 @@
                         </td>
 
                         <td>
-                            {% if user not in collaborators %}
+                            {% if user not in collaborators or collaborators|length == 0 %}
                                 <a href="{% url 'integrator:change_collaboration' operation='add' pk=user.pk %}">
                                     <button type="button" class="btn btn-primary"> Add</button>
                                 </a>
