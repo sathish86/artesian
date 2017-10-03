@@ -71,7 +71,7 @@ Using docker method (Assumes docker and docker-compose is already installed in y
 4. $ docker-compose up
 
 Hopefully this will build the image and run in container, it uses postgres and python3 image and link those container using docker-compose. It should server the app in localhost :8000 port.
-Goto “Try these operations in this Django application:” section for more details
+Goto “Try list of operations in this Django application:” section for more details
 
 
 2. Virtual Env:
@@ -86,7 +86,7 @@ Using virtual environment (Assumes python3 is already installed in your machine)
     b. Download the project:
     Now, you need the Django sample project files in your workspace:
     $ cd /path/to/your/workspace
-    $ git clone git://github.com/kirpit/django-sample-app.git project_name && cd project_name
+    $ git clone git://github.com/sathis86/artesian/ project_name && cd project_name
 
     c. Find the requirements/requirements_dev.txt file that has all the libraries that are required. To install them, simply type:
 
