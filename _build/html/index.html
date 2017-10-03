@@ -41,10 +41,151 @@
             
   <div class="section" id="welcome-to-vccrowd-s-documentation">
 <h1>Welcome to VcCrowd’s documentation!<a class="headerlink" href="#welcome-to-vccrowd-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This is my introduction of my project</p>
-<p>Requirements:</p>
-<p>Project requirements are available in source code, requirements/requirements_dev.txt.
-We can choose the different requirements file based on the environment.</p>
+</div>
+<div class="section" id="the-user-guide">
+<h1>The User Guide:<a class="headerlink" href="#the-user-guide" title="Permalink to this headline">¶</a></h1>
+<p>This part of the documentation, which begins with some background information about this project, then focuses on step-by-step instructions to run this project.</p>
+</div>
+<div class="section" id="django-project-summary">
+<h1>Django Project Summary:<a class="headerlink" href="#django-project-summary" title="Permalink to this headline">¶</a></h1>
+<p>VcCrowd is a simple django project which consist of two Django apps ‘broadcast’ and ‘integrator’ and it has list of features listed below.
+1. Registration, Login and authentication using middleware.
+2. Create and search Post which will be visible to all the registered users.
+3. Integrator app has different models like ‘Startup’, ‘Government’, ‘Corporate’ and ‘Investor‘. This gives them facility to collaborate to each other by adding them as ‘Collaborator’ or removing them from their list of collaborators.
+4. It has User and UserProfile models, using these models we can do view profile information and edit profile information.</p>
+</div>
+<div class="section" id="highlighting-things-that-are-used-in-this-project">
+<h1>Highlighting things that are used in this project:<a class="headerlink" href="#highlighting-things-that-are-used-in-this-project" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Django Template Forms</li>
+<li>Django Many to Many, Foreign key, One to Many Relationship</li>
+<li>Django Middleware</li>
+<li>Django Unit test (used factory Boy and fixtures)</li>
+<li>Generates coverage report for unit test</li>
+<li>Coding standards checks using flake8 and isort</li>
+<li>Populates with initial data load</li>
+<li>Settings file for different environment</li>
+<li>Requirements file for different environment.</li>
+<li>Sphinx for documentation</li>
+<li>Dockerfile and Docker-Compose to run the project in container, if needed.</li>
+</ol>
+</div>
+<div class="section" id="technologies-used">
+<h1>Technologies Used:<a class="headerlink" href="#technologies-used" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Django 1.11 and Python 3.5</li>
+<li>Docker and docker-compose</li>
+<li>Sphinx</li>
+<li>Git</li>
+<li>PostgreSQL</li>
+<li>HTML, CSS and JavaScript</li>
+<li>jQuery</li>
+<li>Twitter Bootstrap</li>
+</ol>
+</div>
+<div class="section" id="list-of-libraries-used-in-this-project">
+<h1>List of libraries used in this project:<a class="headerlink" href="#list-of-libraries-used-in-this-project" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Current requirements_dev.txt</li>
+<li>Django&gt;=1.11,&lt;2.0</li>
+<li>psycopg2</li>
+<li>flake8</li>
+<li>isort</li>
+<li>coverage</li>
+<li>Sphinx</li>
+</ol>
+</div>
+<div class="section" id="read-the-documentation-of-this-project">
+<h1>Read the documentation of this project:<a class="headerlink" href="#read-the-documentation-of-this-project" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Open this file ‘index.html’ under this folder, “project_name/_build/html/index.html”</li>
+</ol>
+</div>
+<div class="section" id="installation">
+<h1>Installation:<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="docker-and-docker-compose">
+<h2>1. Docker and Docker-Compose:<a class="headerlink" href="#docker-and-docker-compose" title="Permalink to this headline">¶</a></h2>
+<p>Using docker method (Assumes docker and docker-compose is already installed in your machine)</p>
+<ol class="arabic simple">
+<li>$ cd /path/to/your/workspace</li>
+<li>$ git clone git://github.com/sathis86/artesian/ project_name &amp;&amp; cd project_name</li>
+<li>$ docker-compose build</li>
+<li>$ docker-compose up</li>
+</ol>
+<p>Hopefully this will build the image and run in container, it uses postgres and python3 image and link those container using docker-compose. It should server the app in localhost :8000 port.
+Goto “Try these operations in this Django application:” section for more details</p>
+</div>
+<div class="section" id="virtual-env">
+<h2>2. Virtual Env:<a class="headerlink" href="#virtual-env" title="Permalink to this headline">¶</a></h2>
+<p>Using virtual environment (Assumes python3 is already installed in your machine)</p>
+<blockquote>
+<div><p>a. create virtual env
+python3 -m venv /path/to/new/virtual/environment
+source /path/to/new/virtual/environment/bin/activate</p>
+<p>b. Download the project:
+Now, you need the Django sample project files in your workspace:
+$ cd /path/to/your/workspace
+$ git clone git://github.com/kirpit/django-sample-app.git project_name &amp;&amp; cd project_name</p>
+<ol class="loweralpha simple" start="3">
+<li>Find the requirements/requirements_dev.txt file that has all the libraries that are required. To install them, simply type:</li>
+</ol>
+<blockquote>
+<div>$ pip install -r requirements/requirements_dev.txt</div></blockquote>
+<ol class="loweralpha simple" start="4">
+<li>Tweaks</li>
+</ol>
+<p>Set the right values in settings files:</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>$ export PYTHONPATH=/path/to/your/workspace/project_name/</li>
+<li>$ export DJANGO_SETTINGS_MODULE=/path/to/your/workspace/project_name/artesian/settings_conf/dev</li>
+</ol>
+</div></blockquote>
+<p>Note:</p>
+<p>If we are running under web servers like UWSGI or Nginx, then
+project_name/wsgi.py file is necessary for WSGI gateways to run your Django application under webservers. You have to definitely change value in this file to whatever settings you wanted to use based on environment (e.g. artesian.settings_conf.test)</p>
+<ol class="loweralpha" start="5">
+<li><p class="first">Initialize the database and run server.</p>
+<p>First set the database engine (PostgreSQL, MySQL, etc..) in your settings files; For instance: projectname/artesian/settings_conf/dev.py and/or projectname/settings/local.py.</p>
+</li>
+</ol>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>$ ./manage.py migrate</li>
+<li>$ ./manage.py runserver</li>
+</ol>
+</div></blockquote>
+<ol class="loweralpha simple" start="6">
+<li>Run unit test</li>
+</ol>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>./manage.py test</li>
+</ol>
+</div></blockquote>
+<ol class="loweralpha simple" start="7">
+<li>Run unit test and coverage report</li>
+</ol>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li>$ coverage run ./manage.py test</li>
+<li>$ coverage html</li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="try-list-of-operations-below-in-this-django-application">
+<h1>Try list of operations below in this Django application:<a class="headerlink" href="#try-list-of-operations-below-in-this-django-application" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Hopefully you should see the project serving in localhost:8000</li>
+<li>Register new user and login.</li>
+<li>Change password</li>
+<li>Try to create new Post and do some search (search results are based multiple fields like Post string, user role and user name).</li>
+<li>Check profile information and edit.</li>
+<li>Logout and register many users as you can with different roles ‘startup’,  ‘government’, ‘corporate’ and ‘investor’.</li>
+<li>Goto ‘Collaborator’ link and check all the registered users listed down on that page. You can add and remove them as your collaborators.</li>
+</ol>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
